@@ -80,58 +80,30 @@ def clearAll(board, sym):
         board[l][k] = EMPTY
 #
 #  Insert your implementations of vLineAt and hLineAt here
-#for k in range (len(board)):
-#    if(board[k][c1]==num and k!=r1):
-#      boolean.append(1)
-#    elif(k==r1):
-#      boolean.append(2)
-#    else:
-#      boolean.append(0)
-
-def vLineAT(board, r1, c1):
+def hLineAt(board, r1, c1):
   num = board[r1][c1]
-  boolean = []
-  erros = [[0,0,2],[0,2,0],[0,2,1],[0,1,2],[1,0,2],[1,2,0],[2,0,0],[2,1,0],[2,0,1]]
-  for k in range (len(board)):
-    if(board[k][c1]== num ):
-      if(num and k!=r1):
-        boolean.append(1)
-      elif(k==r1):
-        boolean.append(2)
-      else:
-        boolean.append(0)
-  if (boolean[c1-2:c1] or boolean[c1-1:c1+1] or boolean[c1:c1+2]) in erros:
-    return False
-  else:
-    return True
-
-def vLineAt(board, r1,c1):
-  num = board[r1][c1]
-  boolean = []
-  for k in board:
-    if (k[c1] == num):
-      boolean.append(True)
-    else:
-      boolean.append(False)
-  if (r1>=2 and r1<=len(boolean)-2):
-    if (r1-1 == True):
-      if (r1-2 == True):
+  for k in range (len(board)-1):
+    if(k<len(board) and k+1== c1 or k == c1):
+      if(board[r1][k+1]==num):
+        if(board[r1][k-1]==num and k>0):
+          return True
+      if(c1==0 and board[r1][k+1]==num and board[r1][k+2]==num):
         return True
-      elif(r1+1 == True):
+      if (c1==len(board) and board[r1][k-1]==num and board[r1][k-2]==num):
         return True
-      else:
-        return False
-    elif(r1+1 == True):
-      if(r1+2==True):
-        return True
-      else:
-        return False
-    else:
-      return False
   return False
-#    a = [[1,1,2],[1,2,1],[2,1,1]]
-#
-#
+
+def vLineAt(board, r1, c1):
+  num = board[r1][c1]
+  for k in range (len(board)-1):
+    if(k<len(board) and k+1== r1 or k == r1):
+      if(board[k+1][c1]==num):
+        if(board[k-1][c1]==num and k>0):
+          return True
+      if(r1==0 and board[k+1][c1]==num and board[k+2][c1]==num):
+        return True
+  return False
+
 #
 #
 #  Report whether or not two pieces on the board can be swapped.  The function
