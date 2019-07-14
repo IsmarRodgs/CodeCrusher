@@ -80,16 +80,29 @@ def clearAll(board, sym):
         board[l][k] = EMPTY
 #
 #  Insert your implementations of vLineAt and hLineAt here
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#def hLineAt(board, r1, c1):
+#  num = board[r1][c1]
+#  for k in range (len(board)-1):
+#    if(k<len(board) and k+1== c1 or k == c1):
+#      if(board[r1][k+1]==num):
+#        if(board[r1][k-1]==num and k>0):
+#          return True
+#      if(c1==0 and board[r1][k+1]==num and board[r1][k+2]==num):
+#        return True
+#      if (c1==len(board) and board[r1][k-1]==num and board[r1][k-2]==num):
+#        return True
+#  return False
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 def hLineAt(board, r1, c1):
   num = board[r1][c1]
   for k in range (len(board)-1):
-    if(k<len(board) and k+1== c1 or k == c1):
-      if(board[r1][k+1]==num):
-        if(board[r1][k-1]==num and k>0):
+    if(k<len(board) and k+1== c1 or k == c1 or k+2==c1):
+      if(board[r1][k]==num):
+        if(board[r1][k+2]==num and k+2<=len(board)):
           return True
-      if(c1==0 and board[r1][k+1]==num and board[r1][k+2]==num):
-        return True
-      if (c1==len(board) and board[r1][k-1]==num and board[r1][k-2]==num):
+
+      if(c1==0 and board[r1][c1+1]==num and board[r1][c1+2]==num):
         return True
   return False
 
@@ -118,7 +131,11 @@ def vLineAt(board, r1, c1):
 #  Returns: True if the proposed swap creates a line.  False otherwise.
 #
 def canSwap(board, r1, c1, r2, c2):
-  return True
+  if (hLineAt(board,r1,c1) or vLineAt(board, r1,c1)):
+    return True
+  elif(hLineAt(board,r2,c2) or vLineAt(board,r2,c2)):
+    return True
+  return False
 
 #
 #  Identify two adjacent positions on the board that can be swapped to 
